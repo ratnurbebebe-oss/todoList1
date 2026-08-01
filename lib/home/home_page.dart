@@ -1,16 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_todolist_1/add/add__page.dart';
+import 'package:flutter_todolist_1/sattingg/Sattingg_page.dart';
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
+ 
+final bool isDark;
   final String title;
+  final VoidCallback onThemeChanged;
+   const MyHomePage({super.key, 
+   required this.title,
+    required this.onThemeChanged,
+     required this.isDark});
   //создать состояние =виделить память для statefull виджет
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  
   List<Note> notes = [];
 
   void _incrementCounter() {
@@ -46,24 +53,47 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         centerTitle: true,
         title: Text(widget.title),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.dark_mode),
+            onPressed: widget.onThemeChanged,
+          ),
+          IconButton(
+            icon: Icon(Icons.settings),
+            onPressed: () {
+            
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => SattinggPage(
+                  isDark: widget.isDark,
+                  onThemeChanged: widget.onThemeChanged,
+                )),
+              );
+            },
+          ),
+        ],
+
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            
             Expanded(
+              
               child: ListView.builder(
                 itemCount: notes.length,
                 itemBuilder: (context, index) {
                   return Container(
                     width: double.infinity,
-                   
+
                     padding: EdgeInsets.all(10.0),
                     margin: EdgeInsets.all(10.0),
                     decoration: BoxDecoration(
                       color: Colors.blueAccent[700],
                       borderRadius: BorderRadius.circular(10.0),
                     ),
+                    
 
                     child: Container(
                       child: Column(
@@ -98,7 +128,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                   });
                                 },
                               ),
-                             
+
                             ],
                           ),
                            Align(
