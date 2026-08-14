@@ -64,10 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
             
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => SattinggPage(
-                  isDark: widget.isDark,
-                  onThemeChanged: widget.onThemeChanged,
-                )),
+                MaterialPageRoute(builder: (context) => SattinggPage()),
               );
             },
           ),

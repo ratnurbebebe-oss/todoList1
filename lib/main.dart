@@ -22,6 +22,7 @@ class MyAppState extends State<MyApp>{
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       themeMode: isDark ? ThemeMode.dark: ThemeMode.light,
       theme: ThemeData(
         brightness: Brightness.light,
