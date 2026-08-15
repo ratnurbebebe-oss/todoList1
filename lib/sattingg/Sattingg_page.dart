@@ -1,6 +1,6 @@
  import 'package:flutter_bloc/flutter_bloc.dart';
  import 'package:flutter/material.dart';
-import 'package:flutter_todolist_1/setting/Setting_cubit.dart';
+import 'package:flutter_todolist_1/setting/setting_cubit.dart';
 
 class SattinggPage extends StatelessWidget{
   const SattinggPage({super.key});

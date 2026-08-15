@@ -1,39 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_todolist_1/home/home_page.dart';
-import 'package:flutter_todolist_1/sattingg/Sattingg_page.dart';
-
-void main() {
-  runApp( MyApp());
+import 'package:shared_preferences/shared_preferences.dart';
+import 'home/home_page.dart';
+import 'onboarding_page.dart';
+void main()async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final prefs =await SharedPreferences.getInstance();
+  final bool isOnboardingViewed=
+  prefs.getBool("isOnboardingViewed")??false;
+  runApp(
+    MyApp(isOnboardingViewed:isOnboardingViewed,
+    ),
+  );
 }
-
-class MyApp extends StatefulWidget {
-  const MyApp({super.key});
-
- @override
-  State<MyApp> createState()=> MyAppState();
-}
-class MyAppState extends State<MyApp>{
-  bool isDark=false;
-   void  changeTheme(){
-    setState(() {
-      isDark=!isDark;
-    });
-  }
+class MyApp extends StatelessWidget{
+  final bool isOnboardingViewed;
+  const MyApp({
+    super.key,
+    required this.isOnboardingViewed,
+  });
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      themeMode: isDark ? ThemeMode.dark: ThemeMode.light,
-      theme: ThemeData(
-        brightness: Brightness.light,
-      ),
-      darkTheme: ThemeData(
-        brightness: Brightness.dark,
-      ),
-      home: MyHomePage(title: "Главный экран",
-      isDark: isDark,
-       onThemeChanged: changeTheme),
+      title: "OnBoarding",
+      home: isOnboardingViewed
+      ?const HomePage()
+      : const OnboardingPage(),
     );
   }
 }
-
